@@ -42,6 +42,7 @@ define $(PKG)_BUILD
         --disable-pthreads \
         --enable-w32threads \
         --disable-doc \
+				--enable-avresample \
 				--disable-avisynth \
         --enable-gpl \
         --enable-version3 \
