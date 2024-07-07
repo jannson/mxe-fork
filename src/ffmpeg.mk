@@ -3,8 +3,8 @@
 PKG             := ffmpeg
 $(PKG)_WEBSITE  := https://ffmpeg.org/
 $(PKG)_IGNORE   :=
-$(PKG)_VERSION  := 4.2.3
-$(PKG)_CHECKSUM := 217eb211c33303b37c5521a5abe1f0140854d6810c6a6ee399456cc96356795e
+$(PKG)_VERSION  := 4.4.4
+$(PKG)_CHECKSUM := 47b1fbf70a2c090d9c0fae5910da11c6406ca92408bb69d8c935cd46c622c7ce
 $(PKG)_SUBDIR   := $(PKG)-$($(PKG)_VERSION)
 $(PKG)_FILE     := $(PKG)-$($(PKG)_VERSION).tar.bz2
 $(PKG)_URL      := https://ffmpeg.org/releases/$($(PKG)_FILE)
@@ -26,6 +26,8 @@ define $(PKG)_UPDATE
 endef
 
 define $(PKG)_BUILD
+    echo "$(TARGET) $(PREFIX) $(BUILD_STATIC) $($(PKG)_CONFIGURE_OPTS)" >> /tmp/build.log
+    echo "$(BUILD_DIR) $(SOURCE_DIR)" >> /tmp/build.log
     cd '$(BUILD_DIR)' && '$(SOURCE_DIR)/configure' \
         --cross-prefix='$(TARGET)'- \
         --enable-cross-compile \
@@ -40,11 +42,10 @@ define $(PKG)_BUILD
         --disable-pthreads \
         --enable-w32threads \
         --disable-doc \
-        --enable-avresample \
+				--disable-avisynth \
         --enable-gpl \
         --enable-version3 \
         --extra-libs='-mconsole' \
-        --enable-avisynth \
         --enable-gnutls \
         --enable-libass \
         --enable-libbluray \
